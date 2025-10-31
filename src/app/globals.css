@@ -1,26 +1,472 @@
+/* ================================
+   src/app/globals.css
+   ================================ */
 @import "tailwindcss";
 
+/* ==== Design Tokens (Tailwind v4 @theme) ==== */
+@theme {
+  --color-sand: #eae3d2;
+  --color-linen: #f4efe6;
+  --color-clay: #c2b8a3;
+  --color-sage: #a3b18a;
+  --color-coffee: #6b5e54;
+  --color-coal: #2f2f2f;
+  /* refined gold: lebih dewasa & mewah */
+  --color-gold: #b48a3c;
+
+  /* Kelas shadow-soft → shadow var */
+  --shadow-soft: 0 8px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ==== Root Variables ==== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Paper base + cloud-like lighting */
+  --bg-texture: radial-gradient(
+      1200px 600px at 50% 10%,
+      rgba(0, 0, 0, 0.06),
+      transparent 60%
+    ),
+    radial-gradient(
+      800px 400px at 10% 80%,
+      rgba(0, 0, 0, 0.04),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #f7f4ef 0%, #f3efe7 100%);
+
+  /* Lebar kanvas app mobile-first */
+  --app-width: 430px;
+
+  /* Wedding layers */
+  /* Vignette (lebih halus untuk rasa lux) */
+  --wedding-vignette: radial-gradient(
+    120% 90% at 50% 10%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+
+  /* Grain halus */
+  --wedding-grain: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.018) 0,
+      rgba(0, 0, 0, 0.018) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.018) 0,
+      rgba(0, 0, 0, 0.018) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+
+  /* Ornamen sudut berbasis conic/radial gradient (gold leaf-ish) */
+  --wedding-corner: conic-gradient(
+      from 225deg at 0% 100%,
+      color-mix(in oklab, var(--color-gold) 55%, #fff 45%) 0 10%,
+      transparent 13% 100%
+    ),
+    conic-gradient(
+      from 45deg at 100% 0%,
+      color-mix(in oklab, var(--color-gold) 55%, #fff 45%) 0 10%,
+      transparent 13% 100%
+    );
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ==== Font Utility (pakai CSS var dari next/font) ==== */
+.font-display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+}
+.font-body {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+.font-script {
+  font-family: var(--font-script), cursive;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Tailwind custom utilities agar bisa dipanggil sebagai class */
+@utility font-display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+}
+@utility font-body {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+@utility font-script {
+  font-family: var(--font-script), cursive;
+}
+
+/* ==== Reset & Base ==== */
+html,
+body {
+  height: 100%;
+}
+html {
+  scroll-behavior: smooth;
+}
+[id] {
+  scroll-margin-top: 72px;
+} /* aman kalau ada header sticky */
+
+body {
+  /* background: var(--bg-texture); */
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  @apply text-coal antialiased;
+}
+
+/* ==== Container ==== */
+.container-page {
+  max-width: var(--app-width);
+  margin-inline: auto;
+  padding-inline: 12px;
+}
+
+/* Responsif lebar kanvas (opsional) */
+@media (min-width: 720px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --app-width: 520px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --app-width: 720px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==== Headings mobile-first dengan clamp ==== */
+.h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  letter-spacing: 0.02em;
+  color: var(--color-coffee);
 }
+.h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  letter-spacing: 0.02em;
+  color: var(--color-coffee);
+}
+.h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3.5vw, 1.5rem);
+  color: var(--color-coffee);
+}
+.p-muted {
+  @apply text-coal/70;
+}
+
+/* ==== Typing caret ==== */
+.typing-caret {
+  position: relative;
+}
+.typing-caret::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 12%;
+  width: 1px;
+  height: 76%;
+  background: currentColor;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ==== Card & Button ==== */
+.card {
+  background: var(--color-linen);
+  border: 1px solid color-mix(in oklab, var(--color-clay) 40%, transparent);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+}
+.btn-primary {
+  background: var(--color-coffee);
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  border: 1px solid color-mix(in oklab, var(--color-coffee) 30%, transparent);
+}
+.btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.script {
+  font-family: var(--font-script);
+}
+.display {
+  font-family: var(--font-display);
+}
+
+/* ==== Section spacing util (opsional) ==== */
+.section {
+  padding-block: clamp(2.5rem, 5vw, 6rem);
+}
+
+/* ==== Utility untuk shadow-soft (agar bisa dipanggil sebagai class) ==== */
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+/* ==========================================================
+   WEDDING BACKGROUND SYSTEM
+   Aktifkan dengan menambahkan class .bg-wedding pada <body> atau <main>
+   ========================================================== */
+
+/* Aktifkan latar “wedding” */
+.bg-wedding {
+  position: relative;
+  isolation: isolate; /* pseudo-element di bawah konten */
+  background: var(--bg-texture);
+}
+
+/* Grain lembut & tekstur kertas (lebih subtle untuk kesan mewah) */
+.bg-wedding::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.55; /* ↓ dari 0.75 */
+  mix-blend-mode: multiply;
+  background: radial-gradient(
+      1200px 600px at 60% -10%,
+      rgba(255, 255, 255, 0.24),
+      transparent 60%
+    ),
+    var(--wedding-grain);
+}
+
+/* Vignette lembut di tepi (sudah ditipiskan via --wedding-vignette) */
+.bg-wedding::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--wedding-vignette);
+}
+
+/* Ornamen sudut (opsional, dibuat lebih halus) */
+.wedding-corners {
+  position: relative;
+}
+.wedding-corners::before,
+.wedding-corners::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+      220px 220px at 0% 100%,
+      color-mix(in oklab, var(--color-gold) 55%, transparent) 0 18%,
+      transparent 20% 100%
+    ),
+    radial-gradient(
+      220px 220px at 100% 0%,
+      color-mix(in oklab, var(--color-gold) 55%, transparent) 0 18%,
+      transparent 20% 100%
+    );
+  opacity: 0.18; /* ↓ dari 0.25 */
+  filter: saturate(1.02);
+}
+.wedding-corners::after {
+  background: var(--wedding-corner),
+    radial-gradient(
+      240px 240px at 0% 100%,
+      transparent 0 70%,
+      rgba(180, 138, 60, 0.14) 75% 100%
+    ),
+    radial-gradient(
+      240px 240px at 100% 0%,
+      transparent 0 70%,
+      rgba(180, 138, 60, 0.14) 75% 100%
+    );
+  opacity: 0.24; /* ↓ dari 0.35 */
+  mask-image: radial-gradient(
+    120% 100% at 50% 50%,
+    black 40%,
+    transparent 100%
+  );
+}
+
+/* Divider ornamen (lebih tipis & redup) */
+.ornate-divider {
+  --_c: color-mix(in oklab, var(--color-gold) 60%, #fff 40%);
+  height: 18px; /* ↓ dari 22px */
+  width: min(360px, 60%);
+  margin: 24px auto;
+  background: radial-gradient(
+      6px 6px at 10% 50%,
+      var(--_c) 48%,
+      transparent 52%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0 10%,
+      var(--_c) 10% 90%,
+      transparent 90% 100%
+    ),
+    radial-gradient(6px 6px at 90% 50%, var(--_c) 48%, transparent 52%);
+  opacity: 0.65; /* ↓ dari 0.8 */
+}
+
+/* Badge “pill” emas lembut */
+.pill-gold {
+  color: var(--color-coffee);
+  background: color-mix(in oklab, var(--color-gold) 12%, #fff 88%);
+  border: 1px solid color-mix(in oklab, var(--color-gold) 35%, transparent);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  box-shadow: 0 2px 8px rgba(180, 138, 60, 0.15);
+}
+
+/* Kartu “paper” transparan */
+.paper {
+  background: color-mix(in oklab, var(--color-linen) 85%, transparent);
+  backdrop-filter: blur(2px);
+  border: 1px solid color-mix(in oklab, var(--color-clay) 35%, transparent);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Variasi tombol outline emas (lux-minimal) */
+.btn-gold {
+  background: #fff;
+  color: var(--color-coffee);
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  border: 1px solid color-mix(in oklab, var(--color-gold) 35%, transparent);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+.btn-gold:hover {
+  background: color-mix(in oklab, var(--color-gold) 10%, #fff 90%);
+  transform: translateY(-1px);
+}
+
+/* Frame foto elegan */
+.photo-frame {
+  border-radius: 18px;
+  border: 1px solid color-mix(in oklab, var(--color-clay) 40%, transparent);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08),
+    0 0 0 8px color-mix(in oklab, var(--color-linen) 60%, transparent);
+}
+
+/* Tipografi aksen (script + gold, dibuat sedikit lebih kalem) */
+.script-gold {
+  font-family: var(--font-script);
+  color: color-mix(in oklab, var(--color-gold) 80%, #8f6e2c 20%);
+  letter-spacing: 0.02em;
+}
+
+/* ===== DEV HELPER: Kunci tampilan ke mobile =====
+   Aktifkan dengan menambahkan class .lock-mobile pada <body>.
+   Hapus saat siap versi desktop.
+*/
+.lock-mobile .md\:grid-cols-5 {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+.lock-mobile .md\:col-span-2,
+.lock-mobile .md\:col-span-3 {
+  grid-column: span 1 / span 1 !important;
+}
+.lock-mobile .md\:text-left {
+  text-align: center !important;
+}
+.lock-mobile .md\:py-24 {
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
+}
+.lock-mobile .md\:text-2xl {
+  font-size: 1.25rem !important;
+  line-height: 1.75rem !important;
+}
+.lock-mobile .md\:text-4xl {
+  font-size: 2rem !important;
+  line-height: 2.5rem !important;
+}
+.lock-mobile .md\:text-5xl {
+  font-size: 2.25rem !important;
+  line-height: 2.5rem !important;
+}
+
+/* (opsional) tampak smartphone di desktop */
+.lock-mobile {
+  max-width: var(--app-width);
+  margin-inline: auto;
+  background: var(--bg-texture);
+}
+
+/* === Earth-tone harmonizer for images (non-destructive) === */
+.tone-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px; /* selaras dengan .photo-frame */
+  isolation: isolate;
+}
+
+.tone-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* Warm subtle film look (aman untuk skin tones) */
+  filter:
+    /* rapihin dynamic range */ contrast(1.02) brightness(0.98)
+    /* sentuhan warm */ sepia(0.08) saturate(1.06) hue-rotate(-6deg);
+  transition: transform 400ms ease, filter 300ms ease, opacity 300ms ease;
+}
+
+/* Gold-sand glaze overlay untuk unify tone */
+.tone-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.12; /* intensitas glaze dasar */
+  background:
+    /* subtle radial highlight */ radial-gradient(
+      120% 90% at 60% 0%,
+      color-mix(in oklab, var(--color-sand) 55%, transparent) 0%,
+      transparent 60%
+    ),
+    /* film glaze gold */
+      color-mix(in oklab, var(--color-gold) 14%, transparent);
+}
+
+/* Sedikit scrim vignette biar teks/subject lebih pop */
+.tone-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 100% at 50% 50%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+  opacity: 0.8;
+}
+
+/* Hover: lebih hidup sedikit tanpa jadi neon */
+.tone-photo:hover img {
+  transform: scale(1.02);
+  filter: contrast(1.04) brightness(0.985) sepia(0.09) saturate(1.07)
+    hue-rotate(-6deg);
+}
+
+/* Varian lebih kuat untuk PNG/transparan jika perlu */
+.tone-photo--strong::after {
+  opacity: 0.18;
+}
+.tone-photo--soft::after {
+  opacity: 0.08;
+} /* lebih ringan */
+
+/* ====== END OF FILE ====== */
