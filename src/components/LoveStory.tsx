@@ -16,9 +16,9 @@ const items: StoryItem[] = [
       "Berawal dari pertemuan singkat antara cust dan kasir di Kodjo Coffee. " +
       "Dari beberapa pertemuan yang tidak direncanakan, muncul rasa nyaman yang tumbuh begitu saja.",
     photos: [
-      "/images/love-story-1-a.jpg",
-      "/images/love-story-1-b.jpg",
-      "/images/love-story-1-c.jpg",
+      "/images/love-story-1-a.JPG",
+      "/images/love-story-1-b.JPG",
+      "/images/love-story-1-c.JPG",
     ],
   },
   {
@@ -26,7 +26,7 @@ const items: StoryItem[] = [
     text:
       "Perasaan yang tulus ini menuntun kami pada keputusan besar dalam hidup. " +
       "Kami memilih untuk saling menggenggam erat, mengikat janji suci, dan menata masa depan bersama.",
-    photos: ["/images/love-story-2-a.jpg", "/images/love-story-2-b.jpg"],
+    photos: ["/images/love-story-2-a.JPG", "/images/love-story-2-b.JPG"],
   },
   {
     title: "Skenario Indah dari Tuhan",

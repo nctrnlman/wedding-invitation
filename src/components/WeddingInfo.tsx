@@ -76,7 +76,7 @@ export default function WeddingInfo({ session = "1" }: Props) {
 
         {/* Foto 1 (portrait) */}
         <PortraitPhoto
-          src="/images/wedding-info-1.jpg"
+          src="/images/wedding-info-1.JPG"
           alt="Couple portrait 1"
           focal="center" // atur ke "top" kalau wajah di bagian atas foto
           priority={false}
@@ -152,7 +152,7 @@ export default function WeddingInfo({ session = "1" }: Props) {
 
         {/* Foto 2 (portrait) */}
         <PortraitPhoto
-          src="/images/wedding-info-2.jpg"
+          src="/images/wedding-info-2.JPG"
           alt="Couple portrait 2"
           focal="center"
           priority={false}
