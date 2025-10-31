@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 const TARGET_ISO = "2025-11-29T04:00:00.000Z"; // 11:00 WIB
 
@@ -21,17 +21,13 @@ export default function Countdown() {
   const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const tick = () => {
-      const next = calcDiff(new Date(), target);
-      setT(next);
-      if (next.done && timerRef.current) {
-        window.clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-    tick();
+    const tick = () => setT(calcDiff(new Date(), target));
     timerRef.current = window.setInterval(tick, 1000);
-    return () => timerRef.current && window.clearInterval(timerRef.current);
+    tick();
+    return () => {
+      if (timerRef.current !== null) window.clearInterval(timerRef.current);
+      timerRef.current = null;
+    };
   }, [target]);
 
   const boxes: [label: string, value: number][] = [
@@ -41,18 +37,27 @@ export default function Countdown() {
     ["Seconds", t.s],
   ];
 
-  // animasi stagger untuk tiles angka
-  const containerVar = {
+  const containerVar: Variants = {
     hidden: { opacity: 0, y: 6 },
     show: {
       opacity: 1,
       y: 0,
-      transition: { staggerChildren: 0.08, duration: 0.45, ease: "easeOut" },
+      transition: {
+        staggerChildren: 0.08,
+      },
     },
   };
-  const itemVar = {
+  const itemVar: Variants = {
     hidden: { opacity: 0, y: 6 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "tween",
+        duration: 0.35,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
   };
 
   return (

@@ -19,6 +19,23 @@ async function ensureIndexes() {
   await col.createIndex({ ip: 1, ts: -1 });
 }
 
+function getClientIp(req: NextRequest) {
+  const h = req.headers;
+  // urutan prioritas + trim first hop bila XFF berisi banyak IP
+  const xff = h.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return (
+    xff ||
+    h.get("x-real-ip") ||
+    h.get("cf-connecting-ip") ||
+    h.get("fly-client-ip") ||
+    h.get("fastly-client-ip") ||
+    h.get("true-client-ip") ||
+    h.get("x-client-ip") ||
+    h.get("x-cluster-client-ip") ||
+    "unknown"
+  );
+}
+
 export async function GET() {
   await ensureIndexes();
   const db = await getDb();
@@ -46,10 +63,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    req.ip ||
-    "unknown";
+  const ip = getClientIp(req);
   const perMin = Number(process.env.WISHES_RATE_LIMIT_PER_MIN || 20);
   const now = Date.now();
   const oneMinAgo = now - 60_000;

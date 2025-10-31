@@ -18,13 +18,22 @@ export default function InviteCover({ guest, session = "1" }: Props) {
   useEffect(() => {
     const DURATION = 1400;
     const start = performance.now();
+
     const tick = (t: number) => {
       const p = Math.min(1, (t - start) / DURATION);
       setTyped(fullText.slice(0, Math.round(p * fullText.length)));
-      if (p < 1) rafRef.current = requestAnimationFrame(tick);
+      if (p < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
     };
-    rafRef.current = requestAnimationFrame(tick);
-    return () => rafRef.current && cancelAnimationFrame(rafRef.current);
+
+    const id = requestAnimationFrame(tick);
+    rafRef.current = id;
+
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    };
   }, []);
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 type Wish = { name: string; message: string; ts: number };
 
@@ -127,10 +127,26 @@ export default function Wishes() {
     if ((e.ctrlKey || e.metaKey) && e.key === "Enter") add();
   };
 
-  const itemVar = {
+  const itemVar: Variants = {
     hidden: { opacity: 0, y: 6 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.22, ease: "easeOut" } },
-    exit: { opacity: 0, y: -4, transition: { duration: 0.16 } },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "tween",
+        duration: 0.22,
+        ease: [0.22, 1, 0.36, 1], // ≈ easeOut
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -4,
+      transition: {
+        type: "tween",
+        duration: 0.16,
+        ease: [0.4, 0, 0.2, 1], // ≈ easeInOut
+      },
+    },
   };
 
   return (
