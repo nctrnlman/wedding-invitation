@@ -11,10 +11,7 @@
   --color-sage: #a3b18a;
   --color-coffee: #6b5e54;
   --color-coal: #2f2f2f;
-  /* refined gold: lebih dewasa & mewah */
   --color-gold: #b48a3c;
-
-  /* Kelas shadow-soft → shadow var */
   --shadow-soft: 0 8px 40px rgba(0, 0, 0, 0.08);
 }
 
@@ -34,7 +31,7 @@
     linear-gradient(180deg, #f7f4ef 0%, #f3efe7 100%);
 
   /* Lebar kanvas app mobile-first */
-  --app-width: 430px;
+  --app-width: 380px;
 
   /* Wedding layers */
   /* Vignette (lebih halus untuk rasa lux) */
@@ -105,10 +102,9 @@ html {
 }
 [id] {
   scroll-margin-top: 72px;
-} /* aman kalau ada header sticky */
+}
 
 body {
-  /* background: var(--bg-texture); */
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   @apply text-coal antialiased;
 }
@@ -118,18 +114,6 @@ body {
   max-width: var(--app-width);
   margin-inline: auto;
   padding-inline: 12px;
-}
-
-/* Responsif lebar kanvas (opsional) */
-@media (min-width: 720px) {
-  :root {
-    --app-width: 520px;
-  }
-}
-@media (min-width: 1024px) {
-  :root {
-    --app-width: 720px;
-  }
 }
 
 /* ==== Headings mobile-first dengan clamp ==== */
@@ -359,7 +343,8 @@ body {
 /* Tipografi aksen (script + gold, dibuat sedikit lebih kalem) */
 .script-gold {
   font-family: var(--font-script);
-  color: color-mix(in oklab, var(--color-gold) 80%, #8f6e2c 20%);
+  /* color: color-mix(in oklab, var(--color-gold) 80%, #8f6e2c 20%); */
+  color: #b89b75;
   letter-spacing: 0.02em;
 }
 
@@ -467,6 +452,6 @@ body {
 }
 .tone-photo--soft::after {
   opacity: 0.08;
-} /* lebih ringan */
+}
 
 /* ====== END OF FILE ====== */

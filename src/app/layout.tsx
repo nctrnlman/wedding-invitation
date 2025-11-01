@@ -16,7 +16,7 @@ const display = Cormorant_Garamond({
 const script = Great_Vibes({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
-  title: "Daffa & Elga — Wedding Invitation",
+  title: "The Wedding of Daffa & Elga",
   description: "You are invited to the wedding of Daffa & Elga",
 };
 

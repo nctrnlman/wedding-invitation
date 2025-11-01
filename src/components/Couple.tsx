@@ -35,7 +35,7 @@ function Person({
       </div>
 
       <div className="p-6 text-center">
-        <p className="font-script text-3xl text-gold mb-1">{role}</p>
+        <p className="font-script text-3xl text-[#B89B75] mb-1">{role}</p>
         <h3 className="h3">{name}</h3>
         <p className="p-muted mt-2 text-sm">{desc}</p>
 
@@ -44,7 +44,7 @@ function Person({
           target="_blank"
           className="
             inline-flex items-center justify-center gap-2 mt-4
-            text-gold hover:text-coffee transition-colors text-sm
+            text-[#B89B75] hover:text-coffee transition-colors text-sm
           "
         >
           <Instagram size={18} strokeWidth={1.6} />@{ig}
@@ -63,17 +63,17 @@ export default function Couple() {
           <h2 className="h2">The Happy Couple</h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8">
           <Person
             role="The Bride"
-            name="Elga Vergya Irawan"
+            name="Elga Vergya Irawan A.Md Par"
             desc="Putri dari Bapak Ferry Irawan & Ibu Yuyun Yuningsih"
             ig="elga.ig"
             photo="/images/brides.jpg"
           />
           <Person
             role="The Groom"
-            name="Ilham Daffa Pratama"
+            name="Ilham Daffa Pratama A.Md Par"
             desc="Putra dari Bapak Isan Sanusi & Ibu Anita Paryani"
             ig="daffa.ig"
             photo="/images/grooms.jpg"

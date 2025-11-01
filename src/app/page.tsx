@@ -10,30 +10,39 @@ import Wishes from "@/components/Wishes";
 import ThankYou from "@/components/ThankYou";
 import Ayat from "@/components/Ayat";
 import MusicPlayer from "@/components/MusicPlayer";
+import LandingShell from "@/components/LandingShell";
 
-type Query = { name?: string; session?: string };
+type Query = { to?: string; session?: string };
 
 export default async function Page({
   searchParams,
 }: {
   searchParams: Promise<Query>;
 }) {
-  const { name = "", session = "1" } = await searchParams;
+  const { to = "", session = "1" } = await searchParams;
 
   return (
-    <main>
-      <MusicPlayer />
-      <InviteCover guest={name} session={session} />
-      <Hero />
-      <Couple />
-      <Ayat />
-      <LoveStory />
-      <WeddingInfo session={session} />
-      <Countdown />
-      <BankAccounts />
-      <Gallery />
-      <Wishes />
-      <ThankYou />
-    </main>
+    <LandingShell
+      Cover={
+        <>
+          <InviteCover guest={to} session={session} />
+        </>
+      }
+      Main={
+        <>
+          <MusicPlayer />
+          <Hero />
+          <Couple />
+          <Ayat />
+          <LoveStory />
+          <WeddingInfo session={session} />
+          <Countdown />
+          <BankAccounts />
+          <Gallery />
+          <Wishes />
+          <ThankYou />
+        </>
+      }
+    />
   );
 }

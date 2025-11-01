@@ -4,14 +4,13 @@ import { Copy, Check } from "lucide-react";
 
 type Account = { bank: string; name: string; number: string };
 
-/** Set compact=true kalau mau kartu lebih kecil */
 export default function BankAccounts({
-  compact = false,
+  compact = true,
 }: {
   compact?: boolean;
 }) {
   const accounts: Account[] = [
-    { bank: "BCA", name: "Daffa", number: "2331367426" },
+    { bank: "BCA", name: "Daffa", number: "2330367426" },
     { bank: "BCA", name: "Elga", number: "2330283036" },
   ];
 
@@ -40,17 +39,13 @@ export default function BankAccounts({
           rekening di bawah ini.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {accounts.map((a) => (
             <article
               key={a.number}
-              className={`
-                paper relative rounded-2xl ${pad} transition-all
-                hover:shadow-lg hover:-translate-y-0.5 text-left
-              `}
+              className={`paper relative rounded-2xl ${pad} transition-all hover:shadow-lg hover:-translate-y-0.5 text-left`}
               aria-label={`Rekening ${a.bank} a.n. ${a.name}`}
             >
-              {/* Badge copied */}
               <div
                 className={`absolute top-2 right-2 transition-opacity ${
                   copied === a.number ? "opacity-100" : "opacity-0"
@@ -60,7 +55,6 @@ export default function BankAccounts({
                 <span className="pill-gold text-[11px]">Copied</span>
               </div>
 
-              {/* Header */}
               <div className="flex items-center justify-between">
                 <div className={`font-display ${titleSize} text-coffee`}>
                   {a.bank}
@@ -80,10 +74,7 @@ export default function BankAccounts({
 
                 <button
                   onClick={() => handleCopy(a.number)}
-                  className="
-                    inline-flex items-center gap-1.5 text-sm
-                    text-gold hover:text-coffee transition-colors
-                  "
+                  className="inline-flex items-center gap-1.5 text-sm text-gold hover:text-coffee transition-colors"
                   aria-label={`Salin nomor ${a.number}`}
                 >
                   {copied === a.number ? (
@@ -100,7 +91,6 @@ export default function BankAccounts({
                 </button>
               </div>
 
-              {/* Ornamen kecil pojok */}
               <span className="pointer-events-none absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gold/10 blur-[2px]" />
             </article>
           ))}

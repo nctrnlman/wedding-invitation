@@ -7,19 +7,21 @@ type StoryItem = {
   title: string;
   text: string;
   photos: string[];
+  orientation?: "portrait" | "landscape";
 };
 
 const items: StoryItem[] = [
   {
     title: "Awal Pertemuan (Maret 2025)",
     text:
-      "Berawal dari pertemuan singkat antara cust dan kasir di Kodjo Coffee. " +
+      "Berawal dari pertemuan singkat di Kodjo Coffee, momen sederhana yang ternyata menyimpan awal dari kisah indah. " +
       "Dari beberapa pertemuan yang tidak direncanakan, muncul rasa nyaman yang tumbuh begitu saja.",
     photos: [
       "/images/love-story-1-a.JPG",
       "/images/love-story-1-b.JPG",
       "/images/love-story-1-c.JPG",
     ],
+    orientation: "landscape",
   },
   {
     title: "Komitmen",
@@ -27,6 +29,7 @@ const items: StoryItem[] = [
       "Perasaan yang tulus ini menuntun kami pada keputusan besar dalam hidup. " +
       "Kami memilih untuk saling menggenggam erat, mengikat janji suci, dan menata masa depan bersama.",
     photos: ["/images/love-story-2-a.JPG", "/images/love-story-2-b.JPG"],
+    orientation: "landscape",
   },
   {
     title: "Skenario Indah dari Tuhan",
@@ -34,10 +37,11 @@ const items: StoryItem[] = [
       "Dulu hanya pertemuan biasa, kini menjadi kisah yang luar biasa. " +
       "Yang sederhana ternyata telah disiapkan Tuhan untuk menjadi selamanya.",
     photos: ["/images/love-story-3-a.jpg"],
+    orientation: "portrait",
   },
 ];
 
-function useAutoPlay(length: number, delay = 3500) {
+function useAutoPlay(length: number, delay = 3800) {
   const [index, setIndex] = useState(0);
   const timerRef = useRef<number | null>(null);
 
@@ -87,7 +91,7 @@ export default function LoveStory() {
 
         <div className="space-y-12">
           {items.map((it, i) => (
-            <StoryBlock key={i} item={it} reversed={i % 2 !== 0} order={i} />
+            <StoryBlock key={i} item={it} order={i} />
           ))}
         </div>
       </div>
@@ -95,15 +99,7 @@ export default function LoveStory() {
   );
 }
 
-function StoryBlock({
-  item,
-  reversed,
-  order,
-}: {
-  item: StoryItem;
-  reversed?: boolean;
-  order: number;
-}) {
+function StoryBlock({ item, order }: { item: StoryItem; order: number }) {
   const photos = useMemo(() => item.photos ?? [], [item.photos]);
   const { index, go, pause, resume } = useAutoPlay(photos.length, 3800);
 
@@ -114,25 +110,27 @@ function StoryBlock({
     else go(index - 1);
   };
 
+  // Tentukan rasio berdasarkan orientasi
+  const aspectClass =
+    item.orientation === "portrait" ? "aspect-[4/5]" : "aspect-[16/9]";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: order * 0.08 }}
-      className={`
-    flex flex-col sm:flex-row gap-6 items-center
-    ${reversed ? "sm:flex-row-reverse" : ""}
-  `}
+      className="flex flex-col gap-6 items-center"
     >
-      <div className="flex-shrink-0 sm:w-[45%] w-full">
+      {/* FOTO */}
+      <div className="w-full">
         <div
-          className="relative rounded-2xl overflow-hidden photo-frame"
+          className="relative rounded-2xl overflow-hidden photo-frame tone-photo"
           onMouseEnter={pause}
           onMouseLeave={resume}
           style={{ touchAction: "pan-y" }}
         >
-          <div className="relative h-[260px] sm:h-[320px]">
+          <div className={`relative ${aspectClass}`}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={`${order}-${index}`}
@@ -153,7 +151,7 @@ function StoryBlock({
                     src={photos[index]}
                     alt={`${item.title} – ${index + 1}`}
                     fill
-                    sizes="(max-width:768px) 100vw, 45vw"
+                    sizes="380px"
                     className="object-cover"
                     priority={order === 0 && index === 0}
                     style={{
@@ -165,6 +163,7 @@ function StoryBlock({
               </motion.div>
             </AnimatePresence>
           </div>
+
           {photos.length > 1 && (
             <div className="absolute bottom-2 left-0 right-0 flex items-center justify-center gap-2">
               {photos.map((_, i) => (
@@ -183,12 +182,10 @@ function StoryBlock({
         </div>
       </div>
 
-      <div className="flex-1 w-full">
+      {/* TEKS */}
+      <div className="w-full">
         <div
-          className="
-        paper text-left rounded-2xl p-6 md:p-7 space-y-2
-        relative z-10
-      "
+          className="paper text-left rounded-2xl p-6 space-y-2 relative z-10"
           style={{
             boxShadow:
               "0 8px 40px rgba(0,0,0,0.08), 0 -2px 0 color-mix(in oklab, var(--color-gold) 28%, transparent)",

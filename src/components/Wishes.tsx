@@ -132,20 +132,12 @@ export default function Wishes() {
     show: {
       opacity: 1,
       y: 0,
-      transition: {
-        type: "tween",
-        duration: 0.22,
-        ease: [0.22, 1, 0.36, 1], // ≈ easeOut
-      },
+      transition: { type: "tween", duration: 0.22, ease: [0.22, 1, 0.36, 1] },
     },
     exit: {
       opacity: 0,
       y: -4,
-      transition: {
-        type: "tween",
-        duration: 0.16,
-        ease: [0.4, 0, 0.2, 1], // ≈ easeInOut
-      },
+      transition: { type: "tween", duration: 0.16, ease: [0.4, 0, 0.2, 1] },
     },
   };
 
@@ -185,7 +177,7 @@ export default function Wishes() {
                 aria-label="Nama"
                 inputMode="text"
               />
-              <div className="mt-2 h-1 w-full rounded  overflow-hidden">
+              <div className="mt-2 h-1 w-full rounded overflow-hidden">
                 <div
                   className="h-full bg-gold transition-all"
                   style={{ width: `${pct(counts.name, MAX_NAME)}%` }}
@@ -270,18 +262,18 @@ export default function Wishes() {
           )}
         </div>
 
-        {/* LIST — compact, tanpa “putih” di bawah */}
+        {/* LIST — compact + dibatasi tingginya (scroll di dalam) */}
         <div className="mt-8">
           <h3 className="h2 mb-3 text-center">Doa &amp; Ucapan</h3>
 
           <div className="relative">
-            {/* mask bawah pakai tone linen, bukan putih */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 z-10"
-            />
-
-            <ul className="space-y-2.5 max-h-[520px] overflow-auto pr-1">
+            <ul
+              className="space-y-2.5 overflow-auto pr-1"
+              style={{
+                maxHeight: "clamp(320px, 52vh, 520px)",
+                scrollbarGutter: "stable",
+              }}
+            >
               {loading && (
                 <li
                   className="rounded-xl"
@@ -333,7 +325,7 @@ export default function Wishes() {
                   >
                     <div className="px-3.5 py-3">
                       <div className="flex items-start gap-3">
-                        {/* Avatar inisial (sedikit lebih kecil) */}
+                        {/* Avatar inisial */}
                         <div
                           aria-hidden
                           className="flex-shrink-0 w-9 h-9 rounded-full grid place-items-center text-[12px] font-semibold text-coffee"
@@ -348,7 +340,6 @@ export default function Wishes() {
                         </div>
 
                         <div className="flex-1 min-w-0">
-                          {/* Baris nama & waktu jadi satu, compact */}
                           <div className="flex items-center justify-between gap-3">
                             <div className="font-display text-coffee text-[15px] leading-tight truncate">
                               {w.name}
@@ -362,14 +353,12 @@ export default function Wishes() {
                             </time>
                           </div>
 
-                          {/* Pesan, jarak kecil */}
                           <p className="p-muted mt-1.5 text-[14px] leading-relaxed whitespace-pre-wrap">
                             {w.message}
                           </p>
                         </div>
                       </div>
 
-                      {/* Divider tipis antar kartu (hilang di last) */}
                       <div className="mt-3 h-px w-full bg-coffee/5 rounded-full" />
                     </div>
                   </motion.li>
@@ -380,7 +369,6 @@ export default function Wishes() {
         </div>
       </div>
 
-      {/* scrollbar halus (scoped) */}
       <style jsx>{`
         ul::-webkit-scrollbar {
           width: 10px;
