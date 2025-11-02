@@ -14,7 +14,8 @@ import Ayat from "@/components/Ayat";
 import MusicPlayer from "@/components/MusicPlayer";
 import LandingShell from "@/components/LandingShell";
 import Rsvp from "@/components/Rsvp";
-
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 type Query = { to?: string; session?: string };
 
 const baseTitle = "The Wedding of Daffa & Elga";
@@ -49,10 +50,11 @@ export async function generateMetadata({
       url: "/",
       images: [
         {
-          url: `${site}/images/cover.jpg`,
+          url: `${site}/images/cover-v2.jpg`,
           width: 1200,
           height: 630,
           alt: "Daffa & Elga — Wedding Invitation",
+          type: "image/jpeg",
         },
       ],
     },
@@ -60,7 +62,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description: `${desc} (${sessionCopy})`,
-      images: [`${site}/images/cover.jpg`],
+      images: [`${site}/images/cover-v2.jpg`],
     },
   } satisfies Metadata;
 }

@@ -34,10 +34,11 @@ export const metadata: Metadata = {
       "You are invited to celebrate the wedding of Daffa & Elga — Save the Date!",
     images: [
       {
-        url: `${site}/images/cover.jpg`,
+        url: `${site}/images/cover-v2.jpg`,
         width: 1200,
         height: 630,
         alt: "Daffa & Elga — Wedding Invitation",
+        type: "image/jpeg",
       },
     ],
   },
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     title: "The Wedding of Daffa & Elga",
     description:
       "You are invited to celebrate the wedding of Daffa & Elga — Save the Date!",
-    images: [`${site}/images/cover.jpg`],
+    images: [`${site}/images/cover-v2.jpg`],
   },
   icons: { icon: "/icon.png" },
 };
