@@ -34,7 +34,7 @@ export const metadata: Metadata = {
       "You are invited to celebrate the wedding of Daffa & Elga — Save the Date!",
     images: [
       {
-        url: "/images/cover.jpg",
+        url: `${site}/images/cover.jpg`,
         width: 1200,
         height: 630,
         alt: "Daffa & Elga — Wedding Invitation",
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
     title: "The Wedding of Daffa & Elga",
     description:
       "You are invited to celebrate the wedding of Daffa & Elga — Save the Date!",
-    images: ["/images/cover.jpg"],
+    images: [`${site}/images/cover.jpg`],
   },
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/icon.png" },
 };
 
 export default function RootLayout({

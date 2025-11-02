@@ -18,8 +18,10 @@ import Rsvp from "@/components/Rsvp";
 type Query = { to?: string; session?: string };
 
 const baseTitle = "The Wedding of Daffa & Elga";
-const baseDesc =
-  "You are invited to celebrate the wedding of Daffa & Elga. Save the Date and join our special day.";
+const baseDesc = "You are invited to celebrate the wedding of Daffa & Elga.";
+const site =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://wedding-invitation-three-sand.vercel.app";
 
 export async function generateMetadata({
   searchParams,
@@ -30,12 +32,10 @@ export async function generateMetadata({
 
   const prettyTo = to ? decodeURIComponent(to).replace(/\s+/g, " ").trim() : "";
 
-  const title = prettyTo
-    ? `Undangan untuk ${prettyTo} — Daffa & Elga`
-    : baseTitle;
+  const title = baseTitle;
 
   const desc = prettyTo
-    ? `You are invited, ${prettyTo}! Hadiri momen bahagia pernikahan Daffa & Elga. Simpan tanggalnya dan sampai jumpa di hari istimewa kami.`
+    ? `Kepada ${prettyTo}, dengan penuh kebahagiaan kami mengundang Anda untuk menghadiri pernikahan Daffa & Elga. Mari berbagi momen istimewa bersama kami.`
     : baseDesc;
 
   const sessionCopy = session === "2" ? "Sesi 2" : "Sesi 1";
@@ -49,7 +49,7 @@ export async function generateMetadata({
       url: "/",
       images: [
         {
-          url: "/images/cover.jpg",
+          url: `${site}/images/cover.jpg`,
           width: 1200,
           height: 630,
           alt: "Daffa & Elga — Wedding Invitation",
@@ -60,9 +60,9 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description: `${desc} (${sessionCopy})`,
-      images: ["/images/cover.jpg"],
+      images: [`${site}/images/cover.jpg`],
     },
-  };
+  } satisfies Metadata;
 }
 
 export default async function Page({
@@ -73,24 +73,30 @@ export default async function Page({
   const { to = "", session = "1" } = await searchParams;
 
   return (
-    <LandingShell
-      Cover={<InviteCover guest={to} session={session} />}
-      Main={
-        <>
-          <MusicPlayer />
-          <Hero />
-          <Couple />
-          <Ayat />
-          <LoveStory />
-          <WeddingInfo session={session} />
-          <Countdown />
-          <BankAccounts />
-          <Gallery />
-          <Rsvp guest={to} />
-          <Wishes guest={to} />
-          <ThankYou />
-        </>
-      }
-    />
+    <>
+      <MusicPlayer />
+      <LandingShell
+        Cover={
+          <>
+            <InviteCover guest={to} session={session} />
+          </>
+        }
+        Main={
+          <>
+            <Hero />
+            <Couple />
+            <Ayat />
+            <LoveStory />
+            <WeddingInfo session={session} />
+            <Countdown />
+            <BankAccounts />
+            <Gallery />
+            <Rsvp guest={to} />
+            <Wishes guest={to} />
+            <ThankYou />
+          </>
+        }
+      />
+    </>
   );
 }
