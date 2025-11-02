@@ -19,9 +19,9 @@ function formatTs(ts: number) {
   }
 }
 
-export default function Wishes() {
+export default function Wishes({ guest = "" }: { guest?: string }) {
   const [list, setList] = useState<Wish[]>([]);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(guest ? guest : "");
   const [message, setMessage] = useState("");
   const [justAdded, setJustAdded] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -32,6 +32,7 @@ export default function Wishes() {
   useEffect(() => {
     (async () => {
       setLoading(true);
+      setName(guest);
       try {
         const res = await fetch("/api/wishes", { cache: "no-store" });
         const data = await res.json();

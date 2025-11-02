@@ -8,7 +8,6 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-// Pakai ENV kalau ada; fallback ke domain Vercel kamu
 const site =
   process.env.NEXT_PUBLIC_SITE_URL ||
   "https://wedding-invitation-three-sand.vercel.app";
@@ -35,7 +34,7 @@ export const metadata: Metadata = {
       "You are invited to celebrate the wedding of Daffa & Elga — Save the Date!",
     images: [
       {
-        url: "/images/cover.jpg", // -> https://wedding-invitation-three-sand.vercel.app/images/cover.jpg
+        url: "/images/cover.jpg",
         width: 1200,
         height: 630,
         alt: "Daffa & Elga — Wedding Invitation",
@@ -50,7 +49,6 @@ export const metadata: Metadata = {
     images: ["/images/cover.jpg"],
   },
   icons: { icon: "/favicon.ico" },
-  themeColor: "#f4efe6",
 };
 
 export default function RootLayout({

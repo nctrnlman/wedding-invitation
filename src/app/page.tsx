@@ -13,16 +13,14 @@ import ThankYou from "@/components/ThankYou";
 import Ayat from "@/components/Ayat";
 import MusicPlayer from "@/components/MusicPlayer";
 import LandingShell from "@/components/LandingShell";
+import Rsvp from "@/components/Rsvp";
 
 type Query = { to?: string; session?: string };
 
-// —— COPYWRITING (untuk share preview) ——
-// Deskripsi singkat yang hangat dan elegan, aman untuk OG/Twitter:
 const baseTitle = "The Wedding of Daffa & Elga";
 const baseDesc =
   "You are invited to celebrate the wedding of Daffa & Elga. Save the Date and join our special day.";
 
-// Jika ada ?to=Nama, kita personalisasi judul & deskripsi:
 export async function generateMetadata({
   searchParams,
 }: {
@@ -40,7 +38,6 @@ export async function generateMetadata({
     ? `You are invited, ${prettyTo}! Hadiri momen bahagia pernikahan Daffa & Elga. Simpan tanggalnya dan sampai jumpa di hari istimewa kami.`
     : baseDesc;
 
-  // Jika ingin beda copy untuk session:
   const sessionCopy = session === "2" ? "Sesi 2" : "Sesi 1";
 
   return {
@@ -49,7 +46,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description: `${desc} (${sessionCopy})`,
-      url: "/", // biar canonical tetap root; opsional kalau mau sertakan query
+      url: "/",
       images: [
         {
           url: "/images/cover.jpg",
@@ -89,7 +86,8 @@ export default async function Page({
           <Countdown />
           <BankAccounts />
           <Gallery />
-          <Wishes />
+          <Rsvp guest={to} />
+          <Wishes guest={to} />
           <ThankYou />
         </>
       }
