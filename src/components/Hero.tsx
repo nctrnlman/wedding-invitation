@@ -72,7 +72,7 @@ export default function Hero() {
             <div className="flex justify-center">
               <span className="pill-gold inline-flex items-center gap-1.5 text-xs">
                 <CalendarDays className="h-3.5 w-3.5" />
-                Minggu, 29 November 2025
+                Sabtu, 29 November 2025
               </span>
             </div>
           </figcaption>

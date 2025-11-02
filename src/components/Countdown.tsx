@@ -82,7 +82,7 @@ export default function Countdown() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/32 to-black/18 mix-blend-multiply" />
 
             {/* Overlay content (judul + angka) */}
-            <div className="absolute inset-0 z-10 px-4 py-8 flex flex-col items-center justify-center text-white">
+            <div className="absolute inset-0 z-10 px-4 py-8 flex flex-col items-center  text-white">
               {/* Judul di dalam gambar */}
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
@@ -164,7 +164,7 @@ export default function Countdown() {
                 className="display text-white text-2xl tracking-wide drop-shadow-[0_3px_14px_rgba(0,0,0,0.5)]"
                 style={{ WebkitTextStroke: "0.6px rgba(0,0,0,0.25)" }}
               >
-                Token <span className="text-gold">&amp;</span> Love
+                Gift <span className="text-gold">&amp;</span> Love
               </p>
             </div>
           </div>

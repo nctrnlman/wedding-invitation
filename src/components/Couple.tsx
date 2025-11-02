@@ -68,14 +68,14 @@ export default function Couple() {
             role="The Bride"
             name="Elga Vergya Irawan A.Md Par"
             desc="Putri dari Bapak Ferry Irawan & Ibu Yuyun Yuningsih"
-            ig="elga.ig"
+            ig="elgaav_"
             photo="/images/brides.jpg"
           />
           <Person
             role="The Groom"
             name="Ilham Daffa Pratama A.Md Par"
             desc="Putra dari Bapak Isan Sanusi & Ibu Anita Paryani"
-            ig="daffa.ig"
+            ig="ilhmdaffap"
             photo="/images/grooms.jpg"
           />
         </div>

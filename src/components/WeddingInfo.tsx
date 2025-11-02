@@ -168,27 +168,29 @@ export default function WeddingInfo({ session = "1" }: Props) {
         <PortraitSlider slides={slides} priorityFirst />
 
         {/* ====== KARTU INFO — versi premium & simetris ====== */}
-        <div className="relative mx-auto max-w-[520px] w-full">
+        {/* ====== KARTU INFO — versi rapi & stabil ====== */}
+        <div className="relative mx-auto w-full max-w-[520px]">
           {/* ambient glow bawah */}
           <div
             aria-hidden
-            className="absolute inset-x-0 -bottom-6 h-24 rounded-full blur-3xl opacity-30"
+            className="pointer-events-none absolute inset-x-0 -bottom-6 h-24 rounded-full blur-3xl opacity-30"
             style={{
               background:
                 "radial-gradient(circle, rgba(185,141,72,0.35), transparent 70%)",
             }}
           />
 
-          {/* gradient border */}
+          {/* wrapper gradient tipis */}
           <div
-            className="relative rounded-2xl p-[1px] bg-gradient-to-tr from-gold/60 to-white/60 shadow-soft"
+            className="relative rounded-2xl p-[1px] bg-gradient-to-tr from-gold/60 to-white/60"
             style={{
               boxShadow:
                 "0 10px 35px rgba(0,0,0,0.08), 0 0 0 1px rgba(185,141,72,0.15)",
             }}
           >
-            <div className="paper rounded-2xl px-7 py-8 text-center space-y-5 relative">
-              {/* Crest inisial */}
+            {/* isi kartu */}
+            <div className="paper relative rounded-2xl px-6 sm:px-7 py-8 text-center space-y-5">
+              {/* Crest inisial (fixed) */}
               <div className="absolute -top-5 left-1/2 -translate-x-1/2">
                 <div className="grid place-items-center w-10 h-10 rounded-full bg-white border border-gold/40 shadow-soft">
                   <span className="font-display text-[11px] tracking-wide text-coffee">
@@ -196,55 +198,85 @@ export default function WeddingInfo({ session = "1" }: Props) {
                   </span>
                 </div>
               </div>
+              {/* spacer biar crest tidak menabrak konten */}
+              <div className="pt-2" />
 
               {/* Tanggal */}
-              <InfoRow
-                icon={<CalendarDays size={18} className="text-coffee" />}
-              >
-                <p className="text-base tracking-wide">
-                  Minggu, 29 November 2025
-                </p>
-              </InfoRow>
-
-              {/* Sesi */}
-              <div className="flex justify-center">
-                <span className="pill-gold text-xs font-medium">
-                  {sessionLabel}
+              <div className="flex items-center justify-center gap-2.5">
+                <span
+                  className="inline-grid place-items-center rounded-full w-9 h-9 border bg-white/70 border-coffee/10"
+                  style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.06)" }}
+                >
+                  <CalendarDays size={18} className="text-coffee" />
                 </span>
+                <p className="font-display text-coffee text-base tracking-wide">
+                  Sabtu, 29 November 2025
+                </p>
+              </div>
+
+              {/* Akad & Resepsi (blok simetris) */}
+              <div className="grid grid-cols-1  gap-4 sm:gap-5">
+                {/* Akad */}
+                <div className="rounded-xl  p-4 space-y-2">
+                  <div className="flex justify-center">
+                    <span className="pill-gold text-xs font-medium">Akad</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2.5">
+                    <span
+                      className="inline-grid place-items-center rounded-full w-9 h-9 border bg-gold/10 border-gold/30"
+                      style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.06)" }}
+                    >
+                      <Clock size={18} className="text-[#B89B75]" />
+                    </span>
+                    <p className="font-display text-[#B89B75] text-xl font-semibold tracking-wide">
+                      08.00 – Selesai WIB
+                    </p>
+                  </div>
+                </div>
+
+                {/* Resepsi */}
+                <div className="rounded-xl  border-coffee/10  p-4 space-y-2">
+                  <div className="flex flex-col items-center justify-center gap-2">
+                    <span className="pill-gold text-xs font-medium">
+                      Resepsi
+                    </span>
+                    <span className="text-[11px] text-coal/70">
+                      {sessionLabel}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2.5">
+                    <span
+                      className="inline-grid place-items-center rounded-full w-9 h-9 border bg-gold/10 border-gold/30"
+                      style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.06)" }}
+                    >
+                      <Clock size={18} className="text-[#B89B75]" />
+                    </span>
+                    <p className="font-display text-[#B89B75] text-xl font-semibold tracking-wide">
+                      {time}
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Divider halus */}
-              <div className="w-10 mx-auto h-[1px] bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
-
-              {/* Jam (highlight) */}
-              <InfoRow
-                icon={<Clock size={18} className="text-gold" />}
-                highlight
-              >
-                <p className="text-2xl tracking-wide font-semibold text-gold">
-                  {time}
-                </p>
-              </InfoRow>
+              <div className="w-14 h-[1px] mx-auto bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
               {/* Lokasi */}
               <div className="space-y-1 pt-1">
                 <div className="font-display text-xl text-coffee font-semibold">
                   Kodjo Coffee
                 </div>
-                <div className="p-muted text-sm leading-relaxed">
+                <p className="p-muted text-sm leading-relaxed">
                   Jl. Sariendah No.17B, Gegerkalong, Bandung
-                </div>
+                </p>
               </div>
-
-              {/* Divider kecil */}
-              <div className="h-[1px] w-14 mx-auto bg-gradient-to-r from-transparent via-gold/40 to-transparent my-1.5" />
 
               {/* CTA Maps */}
               <a
                 href={gmaps}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full font-medium hover:scale-[1.05] hover:shadow-lg active:scale-[0.99] transition-all duration-300 w-full"
+                className="btn-gold inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full font-medium transition-all duration-300 hover:scale-[1.05] hover:shadow-lg active:scale-[0.99] w-full"
               >
                 <MapPin size={18} strokeWidth={1.6} />
                 <span>Lihat di Google Maps</span>
@@ -252,6 +284,8 @@ export default function WeddingInfo({ session = "1" }: Props) {
             </div>
           </div>
         </div>
+        {/* ====== /KARTU INFO ====== */}
+
         {/* ====== /KARTU INFO ====== */}
       </div>
     </section>
